@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Débora — Portfólio</title>
+<style>
+  :root {
+    --bg: #faf9fc;
+    --surface: #ffffff;
+    --ink: #1f1a2e;
+    --muted: #6b6480;
+    --brand: #820ad1;
+    --brand-soft: #f1e6fb;
+    --line: #e6e1ef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(250, 249, 252, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1080px; margin: 0 auto; padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .logo { font-weight: 700; color: var(--ink); }
+  .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .nav-links a { color: var(--muted); font-size: 0.95rem; }
+  .nav-links a:hover { color: var(--brand); text-decoration: none; }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    display: inline-block; font-size: 0.8rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--brand); margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.15; margin-bottom: 18px; }
+  h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 24px; }
+  h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .lead { font-size: 1.15rem; color: var(--muted); max-width: 680px; }
+
+  .hero { padding: 96px 0 72px; }
+  .hero-actions { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 0.95rem; border: 1px solid var(--brand);
+  }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-primary:hover { text-decoration: none; opacity: 0.92; }
+  .btn-outline { color: var(--brand); background: transparent; }
+  .btn-outline:hover { background: var(--brand-soft); text-decoration: none; }
+
+  .about-grid {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start;
+  }
+  .about-grid p + p { margin-top: 14px; }
+  .facts {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 24px;
+  }
+  .facts dt { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 14px; }
+  .facts dt:first-child { margin-top: 0; }
+  .facts dd { font-weight: 600; }
+
+  .cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 28px;
+    display: flex; flex-direction: column; transition: transform .15s, box-shadow .15s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(130, 10, 209, 0.08); }
+  .tag {
+    align-self: flex-start; font-size: 0.75rem; font-weight: 600;
+    background: var(--brand-soft); color: var(--brand);
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .card p { color: var(--muted); font-size: 0.97rem; }
+  .card ul { margin: 14px 0 0 18px; color: var(--muted); font-size: 0.95rem; }
+  .card ul li + li { margin-top: 4px; }
+  .stack { margin-top: auto; padding-top: 18px; font-size: 0.82rem; color: var(--muted); }
+
+  .skills {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px;
+  }
+  .skill-group {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 24px;
+  }
+  .skill-group ul { list-style: none; }
+  .skill-group li { padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 0.95rem; }
+  .skill-group li:last-child { border-bottom: none; }
+
+  .timeline { display: flex; flex-direction: column; gap: 22px; }
+  .timeline-item {
+    border-left: 3px solid var(--brand); padding: 4px 0 4px 20px;
+  }
+  .timeline-item .when { font-size: 0.85rem; color: var(--muted); }
+  .timeline-item p { color: var(--muted); font-size: 0.97rem; margin-top: 4px; }
+
+  .contact-box {
+    background: var(--brand); color: #fff; border-radius: 20px;
+    padding: 48px 36px; text-align: center;
+  }
+  .contact-box h2 { color: #fff; margin-bottom: 12px; }
+  .contact-box p { opacity: 0.9; margin-bottom: 24px; }
+  .contact-box a.btn { background: #fff; color: var(--brand); border-color: #fff; }
+  .contact-links { margin-top: 20px; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
+  .contact-links a { color: #fff; opacity: 0.9; font-size: 0.95rem; }
+
+  footer {
+    text-align: center; padding: 32px 24px; color: var(--muted); font-size: 0.85rem;
+  }
+
+  @media (max-width: 720px) {
+    section { padding: 56px 0; }
+    .hero { padding: 64px 0 48px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 14px; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14111f;
+      --surface: #1d1830;
+      --ink: #f2eefa;
+      --muted: #a79fbd;
+      --brand: #b779f0;
+      --brand-soft: #2b2140;
+      --line: #2e2748;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14111f;
+    --surface: #1d1830;
+    --ink: #f2eefa;
+    --muted: #a79fbd;
+    --brand: #b779f0;
+    --brand-soft: #2b2140;
+    --line: #2e2748;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">Débora</div>
+    <nav class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#trajetoria">Trajetória</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="inicio">
+    <span class="eyebrow">Segurança do Trabalho × Tecnologia</span>
+    <h1>Unindo experiência em SST com dados, automação e IA.</h1>
+    <p class="lead">
+      Técnica em Segurança do Trabalho com anos de prática em compliance, gestão de treinamentos
+      e operação em grande escala. Hoje construo ferramentas que transformam processos
+      complexos em sistemas simples de usar.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projetos">Ver projetos</a>
+      <a class="btn btn-outline" href="#contato">Entrar em contato</a>
+      <a class="btn btn-outline" href="cv-tecnologia.pdf" target="_blank" rel="noopener">Currículo tecnologia (PDF)</a>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <span class="eyebrow">Sobre</span>
+    <h2>Quem sou</h2>
+    <div class="about-grid">
+      <div>
+        <p>
+          Trabalho com Segurança do Trabalho desde 2018, passando por operações em bancos e grandes
+          empresas de serviços. Atuo com compliance normativo, dimensionamento e gestão de brigadas
+          de incêndio, coordenação de CIPA, gestão de fornecedores e programas de treinamento em
+          múltiplas unidades.
+        </p>
+        <p>
+          Ao longo da carreira, percebi que a maior parte do trabalho de SST é organização de
+          informação: planilhas, cronogramas, normas e prazos. Por isso, venho me dedicando a
+          automação, análise de dados e desenvolvimento de ferramentas web para resolver esses
+          problemas de forma escalável. Busco uma transição para funções de tecnologia em que
+          esse conhecimento de domínio faça diferença.
+        </p>
+        <p>
+          Também crio materiais educativos e conteúdos visuais, o que me ajuda a comunicar
+          informações técnicas de forma clara para públicos diversos.
+        </p>
+      </div>
+      <dl class="facts">
+        <dt>Formação</dt>
+        <dd>Técnico em Segurança do Trabalho</dd>
+        <dt>Especialização</dt>
+        <dd>Higiene Ocupacional</dd>
+        <dt>Em andamento</dt>
+        <dd>Gestão de TI (UNINOVE)</dd>
+        <dt>Idade</dt>
+        <dd>28 anos</dd>
+        <dt>Localização</dt>
+        <dd>São Paulo, SP</dd>
+        <dt>Foco atual</dt>
+        <dd>Automação, dados e IA aplicados</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <span class="eyebrow">Projetos</span>
+    <h2>Trabalhos selecionados</h2>
+    <div class="cards">
+
+      <article class="card">
+        <span class="tag">Gestão + Automação</span>
+        <h3>Sistema de gestão da brigada de incêndio</h3>
+        <p>
+          Plataforma para planejar e acompanhar um programa de treinamento com 31 turmas em três cidades,
+          cobrindo dimensionamento, cronograma, controle de inventário e orçamento.
+        </p>
+        <ul>
+          <li>Planilha com fórmulas e 11 abas interligadas</li>
+          <li>Dashboard web com Google Apps Script</li>
+          <li>Portal de inscrição self-service para participantes</li>
+          <li>Regras normativas: IT 17/2025 (SP) e NT 2-11:2019 (RJ)</li>
+        </ul>
+        <p class="stack">Excel · Google Apps Script · HTML · CSS · JavaScript</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Qualidade + Dados</span>
+        <h3>Auditoria de vídeos de integração em SST</h3>
+        <p>
+          Revisão técnica de uma série de 11 módulos de treinamento produzida por fornecedor externo,
+          com análise automatizada de áudio, legendas, gráficos e conteúdo.
+        </p>
+        <ul>
+          <li>Verificação com ffprobe, ffmpeg e PIL</li>
+          <li>Identificação de erros críticos de conteúdo normativo</li>
+          <li>Relatório formal e perguntas de avaliação prontas para o LMS</li>
+        </ul>
+        <p class="stack">Python · FFmpeg · Análise de mídia</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Produtividade</span>
+        <h3>Dashboard pessoal de produtividade</h3>
+        <p>
+          Quadro kanban interativo para organizar projetos e atividades do dia a dia, com métricas
+          ao vivo e resumo automático para reuniões de alinhamento.
+        </p>
+        <ul>
+          <li>Dois quadros: projetos e atividades</li>
+          <li>Resumo agrupado por frente de trabalho</li>
+          <li>Exportação com um clique para Slack e e-mail</li>
+        </ul>
+        <p class="stack">HTML · CSS · JavaScript</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Processo</span>
+        <h3>Padronização de sinalização de riscos em campo</h3>
+        <p>
+          Proposta de processo para que técnicos levassem adesivos de alerta de risco durante as visitas,
+          reduzindo custo e tempo de execução em uma rede com mais de 2.000 agências.
+        </p>
+        <p class="stack">Gestão de processos · Operações</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <span class="eyebrow">Habilidades</span>
+    <h2>Competências</h2>
+    <div class="skills">
+      <div class="skill-group">
+        <h3>Tecnologia</h3>
+        <ul>
+          <li>Python (análise de mídia e dados)</li>
+          <li>JavaScript e HTML/CSS</li>
+          <li>Google Apps Script</li>
+          <li>Excel avançado (fórmulas e modelagem)</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Segurança do Trabalho</h3>
+        <ul>
+          <li>Compliance normativo (NR-10, NR-12, NR-23, LOTO)</li>
+          <li>Brigada de incêndio e planos de emergência</li>
+          <li>Gestão de CIPA</li>
+          <li>Higiene ocupacional</li>
+          <li>Gestão de fornecedores e contratos</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Operação e pessoas</h3>
+        <ul>
+          <li>Gestão de programas em múltiplas unidades</li>
+          <li>Planejamento de cronogramas e recursos</li>
+          <li>Treinamento e desenvolvimento</li>
+          <li>Comunicação técnica para públicos diversos</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="trajetoria">
+    <span class="eyebrow">Trajetória</span>
+    <h2>Experiência e formação</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="when">Jul 2026 – Out 2026</div>
+        <h3>Técnica de Segurança do Trabalho (SESMT) · Nubank</h3>
+        <p>Responsável pelo programa de brigada de incêndio em 6 unidades, gestão de terceiros, apoio à CIPA e inspeções de risco. Atuação em cobertura de licença.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Abr 2024 – Jul 2026</div>
+        <h3>Técnica de Segurança do Trabalho Pleno · Porto (alocada no SESMT do Itaú Unibanco)</h3>
+        <p>Processo de sinalização de risco em mais de 2.000 agências, análise de KPIs de segurança, investigação de acidentes, auditorias internas e de terceiros e apoio à certificação ISO 45001.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Jun 2022 – Set 2023</div>
+        <h3>Técnica de Segurança do Trabalho · Mantris</h3>
+        <p>Contrato temporário.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Set 2021 – Abr 2022</div>
+        <h3>Analista de Suporte SOC · Nexus Gestão em Saúde</h3>
+        <p>Suporte a clientes, treinamentos presenciais e on-line e configuração de sistemas de gestão em saúde ocupacional.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Mai 2021 – Set 2021</div>
+        <h3>Analista de Suporte SOC · CLM Medicina do Trabalho</h3>
+        <p>Contrato temporário. Carga de dados, cadastro de riscos e exames, integração de sistemas e apoio ao eSocial.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Ago 2018 – Fev 2021</div>
+        <h3>Auxiliar Administrativa e Estagiária Técnica em SST · ESAME Medicina do Trabalho</h3>
+        <p>Elaboração de laudos técnicos de SST e apoio ao comercial no levantamento de serviços.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Jul 2024 – Jul 2027</div>
+        <h3>Gestão de Tecnologia da Informação · UNINOVE</h3>
+        <p>Em andamento.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="when">Jul 2024 – Nov 2024</div>
+        <h3>Especialização em Higiene Ocupacional · Senac São Paulo</h3>
+      </div>
+      <div class="timeline-item">
+        <div class="when">2018 – 2019</div>
+        <h3>Técnico em Segurança do Trabalho · ETEC Profª Drª Doroti Quiomi Kanashiro Toyohara</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="contact-box">
+      <h2>Vamos conversar?</h2>
+      <p>Estou aberta a oportunidades de estágio e transição para funções em tecnologia, IA e dados.</p>
+      <a class="btn" href="mailto:deboracristina3656@gmail.com">Enviar e-mail</a>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/deboracristina-deboracristina-it-tst" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="tel:+5511948557866">(11) 94855-7866</a>
+        <a href="curriculo.pdf" target="_blank" rel="noopener">Currículo (PDF)</a>
+        <a href="cv-tecnologia.pdf" target="_blank" rel="noopener">Currículo tecnologia (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Débora · Feito com HTML, CSS e JavaScript puros.</p>
+</footer>
+
+</body>
+</html>
